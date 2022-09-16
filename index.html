@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POKEMON DEMO</title>
+
+    <!--CS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-color: #0f1923;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--background-color);
+        }
+
+        .btn {
+            /* Clean style */
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            border: none;
+            background: none;
+            padding: 0;
+            color: var(--button-text-color);
+            cursor: pointer;
+            /* Clean style */
+
+            --button-text-color: var(--background-color);
+            --button-text-color-hover: var(--button-background-color);
+            --border-color: #7D8082;
+            --button-background-color: #ece8e1;
+            --highlight-color: #ff4655;
+            --button-inner-border-color: transparent;
+            --button-bits-color: var(--background-color);
+            --button-bits-color-hover: var(--button-background-color);
+
+            position: relative;
+            padding: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all .15s ease;
+        }
+
+        .btn::before,
+        .btn::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            left: 0;
+            height: calc(50% - 5px);
+            border: 1px solid var(--border-color);
+            transition: all .15s ease;
+        }
+
+        .btn::before {
+            top: 0;
+            border-bottom-width: 0;
+        }
+
+        .btn::after {
+            bottom: 0;
+            border-top-width: 0;
+        }
+
+        .btn:active,
+        .btn:focus {
+            outline: none;
+        }
+
+        .btn:active::before,
+        .btn:active::after {
+            right: 3px;
+            left: 3px;
+        }
+
+        .btn:active::before {
+            top: 3px;
+        }
+
+        .btn:active::after {
+            bottom: 3px;
+        }
+
+        .btn__inner {
+            position: relative;
+            display: block;
+            padding: 20px 30px;
+            background-color: var(--button-background-color);
+            overflow: hidden;
+            box-shadow: inset 0px 0px 0px 1px var(--button-inner-border-color);
+        }
+
+        .btn__inner::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 2px;
+            background-color: var(--button-bits-color);
+        }
+
+        .btn__inner::after {
+            content: '';
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 4px;
+            height: 4px;
+            background-color: var(--button-bits-color);
+            transition: all .2s ease;
+        }
+
+        .btn__slide {
+            display: block;
+            position: absolute;
+            top: 0;
+            bottom: -1px;
+            left: -8px;
+            width: 0;
+            background-color: var(--highlight-color);
+            transform: skew(-15deg);
+            transition: all .2s ease;
+        }
+
+        .btn__content {
+            position: relative;
+        }
+
+        .btn:hover {
+            color: var(--button-text-color-hover);
+        }
+
+        .btn:hover .btn__slide {
+            width: calc(100% + 15px);
+        }
+
+        .btn:hover .btn__inner::after {
+            background-color: var(--button-bits-color-hover);
+        }
+
+        .btn--light {
+            --button-background-color: var(--background-color);
+            --button-text-color: var(--highlight-color);
+            --button-inner-border-color: var(--highlight-color);
+            --button-text-color-hover: #ece8e1;
+            --button-bits-color-hover: #ece8e1;
+        }
+
+        @import url('https://rsms.me/inter/inter-ui.css');
+
+        ::selection {
+            background: #2D2F36;
+        }
+
+        ::-webkit-selection {
+            background: #2D2F36;
+        }
+
+        ::-moz-selection {
+            background: #2D2F36;
+        }
+
+
+        @media (max-width: 767px) {
+            .page {
+                height: auto;
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+            }
+        }
+
+        .container {
+            display: flex;
+            height: 320px;
+            margin: 0 auto;
+            width: 640px;
+            font-family: 'Press Start 2P', cursive;
+            
+        }
+
+        @media (max-width: 767px) {
+            .container {
+                flex-direction: column;
+                height: 630px;
+                width: 320px;
+            }
+        }
+
+        .left {
+            background: white;
+            height: calc(100% - 40px);
+            top: 20px;
+            position: relative;
+            width: 50%;
+        }
+
+        @media (max-width: 767px) {
+            .left {
+                height: 100%;
+                left: 20px;
+                width: calc(100% - 40px);
+                max-height: 270px;
+            }
+        }
+
+        .login {
+            font-size: 20px;
+            font-weight: 900;
+            margin: 50px 40px 40px;
+        }
+
+        .eula {
+            color: #999;
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 40px;
+        }
+
+        .right {
+            background: #474A59;
+            box-shadow: 0px 0px 40px 16px rgba(0, 0, 0, 0.22);
+            color: #F1F1F2;
+            position: relative;
+            width: 50%;
+        }
+
+        @media (max-width: 767px) {
+            .right {
+                flex-shrink: 0;
+                height: 100%;
+                width: 100%;
+                max-height: 350px;
+            }
+        }
+
+        svg {
+            position: absolute;
+            width: 320px;
+        }
+
+        path {
+            fill: none;
+            
+            stroke-width: 4;
+            stroke-dasharray: 240 1386;
+        }
+
+        .form {
+            margin: 40px;
+            position: absolute;
+        }
+
+        label {
+            color: #c2c2c5;
+            display: block;
+            font-size: 14px;
+            height: 16px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+     
+        }
+
+        input {
+            background: transparent;
+            border: 0;
+            color: #f2f2f2;
+            font-size: 20px;
+            height: 30px;
+            line-height: 30px;
+            outline: none !important;
+            width: 100%;
+           
+        }
+        input[type=usuario], input[type=password]{
+            border-bottom: #ff46568e 3px solid;
+        }
+
+        input::-moz-focus-inner {
+            border: 0;
+        }
+
+        #submit {
+            color: #707075;
+            margin-top: 40px;
+            transition: color 300ms;
+        }
+
+        #submit:focus {
+            color: #f2f2f2;
+        }
+
+        #submit:active {
+            color: #d0d0d2;
+        }
+        .invisible {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div>
+            <button class="btn" style="width: 300px;" onclick="login()">
+
+                <span class="btn__inner">
+                    <span class="btn__slide"></span>
+                    <span class="btn__content">Iniciar sesión</span>
+                </span>
+            </button>
+        </div>
+
+        <div>
+            <button class="btn btn--light" style="width: 300px;" onclick="registrarse()" >
+                <span class="btn__inner">
+                    <span class="btn__slide"></span>
+                    <span class="btn__content">Registrarse</span>
+                </span>
+            </button>
+        </div>
+    </div>
+
+
+
+    <div id="frameLogin" class="invisible" style="display: absolute; position: absolute;">
+        <div class="page">
+            <div class="container">
+                <div class="left">
+                    <div class="login">Login</div>
+                    <div class="eula">Inicia sesión con tu nombre de usuario y contraseña</div>
+                </div>
+                <div class="right">
+                    <svg viewBox="0 0 320 300">
+                        <defs>
+                            <linearGradient inkscape:collect="always" id="linearGradient" x1="13" y1="193.49992"
+                                x2="307" y2="193.49992" gradientUnits="userSpaceOnUse">
+                                <stop style="stop-color:#ff00ff;" offset="0" id="stop876" />
+                                <stop style="stop-color:#ff0000;" offset="1" id="stop878" />
+                            </linearGradient>
+                        </defs>
+                        <path
+                            d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
+                    </svg>
+                    <form class="form" id="formL" method="POST">
+                        <p style="text-align: right; cursor: pointer" onclick="closeFrame()">X</p>
+                        <label for="usuarioL">Usuario</label>
+                        <input type="usuario" id="usuarioL" name="usuarioL">
+                        <label for="passwordL">Contraseña</label>
+                        <input type="password" id="passwordL" name="passwordL">
+                        <input type="submit" id="submit" value="Aceptar">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="frameRegistrarse" class="invisible" style="display: absolute; position: absolute;">
+        <div class="page">
+            <div class="container">
+                <div class="left">
+                    <div class="login">Registrarse</div>
+                    <div class="eula">Registrate para poder disfrutar de la experiencia de esta demo estilo Pokemon!</div>
+                </div>
+                <div class="right">
+                    <svg viewBox="0 0 320 300">
+                        <defs>
+                            <linearGradient inkscape:collect="always" id="linearGradient" x1="13" y1="193.49992"
+                                x2="307" y2="193.49992" gradientUnits="userSpaceOnUse">
+                                <stop style="stop-color:#ff00ff;" offset="0" id="stop876" />
+                                <stop style="stop-color:#ff0000;" offset="1" id="stop878" />
+                            </linearGradient>
+                        </defs>
+                        <path
+                            d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
+                    </svg>
+                    <form id="formR" class="form" method="POST">
+                        <p style="text-align: right; cursor: pointer" onclick="closeFrame()">X</p>
+                        <label for="usuarioR">Usuario</label>
+                        <input type="usuario" id="usuarioR" name="usuarioR" required>
+                        <label for="passwordR">Contraseña</label>
+                        <input type="password" id="passwordR" name="passwordR" required>
+                        <input type="submit" id="submit" value="Aceptar">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data/usuario.js"></script>
+    <script src="p_index.js"></script>
+    <script src="insertar.js"></script>
+    <script src="login.js"></script>
+</body>
+
+
+</html>
