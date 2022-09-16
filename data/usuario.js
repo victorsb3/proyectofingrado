@@ -1,0 +1,3 @@
+var usuarioNombre;
+var usuarioContra;
+
